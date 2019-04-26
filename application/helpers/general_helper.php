@@ -20,3 +20,31 @@ function fs_show_alert(){
 function fs_hash($val){
 	return sha1($val);
 }
+function label_skin($config){
+	return '<span class="label label-'.$config['type'].'">'.$config['text'].'</span>';
+}
+function status_hira($status,$skin=false){
+	switch ($status) {
+		case '0':
+			$msg = 'Belum diproses';
+			$type = 'default';
+			break;
+		case '1':
+			$msg = 'Pending';
+			$type = 'warning';
+			break;
+		case '2':
+			$msg = 'Disetujui';
+			$type = 'success';
+			break;
+		default:
+			$msg = 'Belum diproses';
+			$type = 'default';
+			break;
+	}
+	if ($skin){
+		return label_skin(['type'=>$type,'text'=>$msg]);
+	}else{
+		return $msg;
+	}
+}

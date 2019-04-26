@@ -9,7 +9,7 @@ class Login extends CI_Controller
 		if ($this->session->userdata('logged_in'))
 		{
 			$role = $this->session->userdata('role');
-			if ($role == 1){
+			if ($role == 1 || $role == 2){
 				redirect('hira');
 			}else{
 				fs_create_alert(['type'=>'danger','message'=>'Maaf, Role tidak ditemukan, silahkan login kembali.']);

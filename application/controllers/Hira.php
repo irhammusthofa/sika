@@ -50,6 +50,7 @@ class Hira extends CI_Controller{
                     'no_notifikasi' => $this->input->post('no_notifikasi'),
                     'ringkasan_pek' => $this->input->post('ringkasan_pek'),
                     'tools' => $this->input->post('tools'),
+                    'id_user' => $this->session->userdata('username'),
                     'upload' => $file_name['file_name'],
                 );
                 
@@ -67,7 +68,15 @@ class Hira extends CI_Controller{
             $this->load->view('layouts/main',$data);
         }
     }  
-
+    public function approve($id){
+        $this->Hira_model->update_hira($id,['status'=>2,'comment'=>'']);
+        redirect('hira');
+    }
+    public function pending($id){
+        $comment = $this->input->post('comment',true);
+        $this->Hira_model->update_hira($id,['status'=>1,'comment'=>$comment]);
+        redirect('hira');
+    }
     public function do_upload($name,$file_name)
     {
         $config['allowed_types']        = "pdf|doc|docx";
