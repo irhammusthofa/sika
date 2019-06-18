@@ -21,7 +21,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" name="tanggal_terbit" value="<?php echo date('Y-m-d'); ?>"
+									<input type="text" name="tanggal_terbit" value="<?= ($hira->no===NULL) ? $this->input->post('tanggal_terbit') : $hira->tanggal_terbit ?>"
 										placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"
 										class="form-control pull-right" id="datepicker" autocomplete="off" />
 								</div>
@@ -37,7 +37,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-calendar"></i>
 									</div>
-									<input type="text" name="tgl_akhir_terbit" value="<?php echo date('Y-m-d'); ?>"
+									<input type="text" name="tgl_akhir_terbit" value="<?= ($hira->no===NULL) ? $this->input->post('tgl_akhir_terbit') : $hira->tgl_akhir_terbit ?>""
 										placeholder="YYYY-MM-DD" data-date-format="yyyy-mm-dd"
 										class="form-control pull-right" id="datepicker2" autocomplete="off" />
 								</div>
@@ -50,13 +50,15 @@
 							<div class="col-md-5">
 						<label for="jam_kerja" class="control-label">Jam Kerja Awal</label>
 						<div class="form-group">
+							<?php $selected['jam_kerja'] =  ($hira->no===NULL) ? $this->input->post('jam_kerja') : $hira->jam_kerja ?>
 								<?php echo form_dropdown('jam_kerja', @$jam_kerja,@$selected['jam_kerja'],[ 'no' => 'jam_kerja','class' => 'form-control','required' => 'true' ]); ?>
 						</div>
 					</div>
 						<div class="col-md-5">
 								<label for="jam_akhir_kerja" class="control-label">Jam Kerja Akhir</label>
 								<div class="form-group">
-										<?php echo form_dropdown('jam_akhir_kerja', @$jam_akhir_kerja,@$selected['jam_akhir_kerja'],[ 'no' => 'jam_akhir_kerja','class' => 'form-control','required' => 'true' ]); ?>
+								<?php $selected['jam_akhir_kerja'] =  ($hira->no===NULL) ? $this->input->post('jam_akhir_kerja') : $hira->jam_akhir_kerja ?>
+										<?php echo form_dropdown('jam_akhir_kerja', @$jam_akhir_kerja,$selected['jam_akhir_kerja'],[ 'no' => 'jam_akhir_kerja','class' => 'form-control','required' => 'true' ]); ?>
 								</div>
 						</div>
 					<div class="col-md-10">
@@ -86,13 +88,13 @@
 					<div class="col-md-12">
 						<label for="uraian_pekerjaan" class="control-label">Uraian Pekerjaan</label>
 						<div class="form-group">
-							<textarea name="uraian_pekerjaan" class="form-control" id="uraian_pekerjaan"><?php echo $this->input->post('uraian_pekerjaan'); ?></textarea>
+							<textarea name="uraian_pekerjaan" class="form-control" id="uraian_pekerjaan"><?= @$hira->ringkasan_pek ?></textarea>
 						</div>
 					</div>
 					<div class="col-md-10">
 						<label for="peralatan" class="control-label">Peralatan Yang Digunakan</label>
 						<div class="form-group">
-							<input type="text" name="peralatan" value="<?php echo $this->input->post('peralatan'); ?>" class="form-control" id="peralatan" />
+							<input type="text" name="peralatan" value="<?= @$hira->tools ?>" class="form-control" id="peralatan" />
 						</div>
 					</div>
 					<div class="col-md-10">
@@ -220,8 +222,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date1" class="control-label">Tanggal Penerima</label>
-						<div class="form-group">
-							<input type="text" name="date1" value="<?php echo $this->input->post('date1'); ?>" class="has-datepicker form-control" id="date1" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date1"data-date-format="YYYY-MM-DD" value="<?php echo $this->input->post('date1'); ?>" class="has-datepicker form-control" id="date1" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -232,8 +237,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date2" class="control-label">Tanggal Diperiksa</label>
-						<div class="form-group">
-							<input type="text" name="date2" value="<?php echo $this->input->post('date2'); ?>" class="has-datepicker form-control" id="date2" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date2" data-date-format="YYYY-MM-DD" value="<?php echo $this->input->post('date2'); ?>" class="has-datepicker form-control" id="date2" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -244,8 +252,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date3" class="control-label">Tanggal Dikaji HSE</label>
-						<div class="form-group">
-							<input type="text" name="date3" value="<?php echo $this->input->post('date3'); ?>" class="has-datepicker form-control" id="date3" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date3"  data-date-format="YYYY-MM-DD" value="<?php echo $this->input->post('date3'); ?>" class="has-datepicker form-control" id="date3" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -256,8 +267,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date4" class="control-label">Tanggal Disetujui</label>
-						<div class="form-group">
-							<input type="text" name="date4" value="<?php echo $this->input->post('date4'); ?>" class="has-datepicker form-control" id="date4" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date4" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date4'); ?>" class="has-datepicker form-control" id="date4" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -268,8 +282,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date" class="control-label">Tanggal</label>
-						<div class="form-group">
-							<input type="text" name="date" value="<?php echo $this->input->post('date'); ?>" class="has-datepicker form-control" id="date" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date'); ?>" class="has-datepicker form-control" id="date" />
 						</div>
 					</div>
 					</div>
@@ -288,8 +305,11 @@
 					</div>
 					<div class="col-md-10">
 						<label for="date_penghentian" class="control-label">Tanggal Penghentian Izin</label>
-						<div class="form-group">
-							<input type="text" name="date_penghentian" value="<?php echo $this->input->post('date_penghentian'); ?>" class="has-datepicker form-control" id="date_penghentian" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date_penghentian" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date_penghentian'); ?>" class="has-datepicker form-control" id="date_penghentian" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -306,8 +326,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date_pengesahan" class="control-label">Tanggal Pengesahan Izin</label>
-						<div class="form-group">
-							<input type="text" name="date_pengesahan" value="<?php echo $this->input->post('date_pengesahan'); ?>" class="has-datepicker form-control" id="date_pengesahan" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date_pengesahan" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date_pengesahan'); ?>" class="has-datepicker form-control" id="date_pengesahan" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -337,8 +360,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date_penerima" class="control-label">Tanggal Disiapkan</label>
-						<div class="form-group">
-							<input type="text" name="date_penerima" value="<?php echo $this->input->post('date_penerima'); ?>" class="has-datepicker form-control" id="date_penerima" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date_penerima" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date_penerima'); ?>" class="has-datepicker form-control" id="date_penerima" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -349,8 +375,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date_pengawas" class="control-label">Tanggal Diperiksa</label>
-						<div class="form-group">
-							<input type="text" name="date_pengawas" value="<?php echo $this->input->post('date_pengawas'); ?>" class="has-datepicker form-control" id="date_pengawas" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date_pengawas" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date_pengawas'); ?>" class="has-datepicker form-control" id="date_pengawas" />
 						</div>
 					</div>
 					<div class="col-md-12">
@@ -361,8 +390,11 @@
 					</div>
 					<div class="col-md-12">
 						<label for="date_pemberi" class="control-label">Tanggal Disetujui</label>
-						<div class="form-group">
-							<input type="text" name="date_pemberi" value="<?php echo $this->input->post('date_pemberi'); ?>" class="has-datepicker form-control" id="date_pemberi" />
+						<div class="input-group date">
+							<div class="input-group-addon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<input type="text" name="date_pemberi" data-date-format="YYYY-MM-DD"  value="<?php echo $this->input->post('date_pemberi'); ?>" class="has-datepicker form-control" id="date_pemberi" />
 						</div>
 					</div>
 				</div>

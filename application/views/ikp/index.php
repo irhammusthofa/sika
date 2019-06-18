@@ -7,10 +7,10 @@
                     <!-- <a href="<?php echo site_url('ikp/add'); ?>" class="btn btn-success btn-sm">Add</a>  -->
                 </div>
             </div>
-            <div class="box-body">
-			<table id="table1" class="table table-bordered table-hover">
-                    <tr>
-					<th>No</th>
+            <div class="box-body table-responsive">
+			<table id="dtable" class="table table-bordered table-hover">
+                    <thead>
+					    <th>No</th>
 						<th>Lanjutan No</th>
 						<th>Tanggal Terbit</th>
 						<th>Nama Pelaksana</th>
@@ -18,30 +18,16 @@
 						<th>Jumlah Pekerja</th>
 						<th>Lokasi</th>
 						<th>Izin Diperlukan</th>
+						<th>Status</th>
 						<th>Actions</th>
-                    </tr>
-                    <?php foreach($ikp as $i){ ?>
-                    <tr>
-					    <td><?php echo $i['no']; ?></td>
-						<td><?php echo $i['lanjutan_no']; ?></td>
-						<td><?php echo $i['tanggal_terbit']; ?></td>
-						<td><?php echo $i['nama_pelaksana']; ?></td>
-						<td><?php echo $i['perusahaan']; ?></td>
-						<td><?php echo $i['jumlah_pekerja']; ?></td>
-						<td><?php echo $i['lokasi']; ?></td>
-						<td><?php echo $i['izin_diperlukan']; ?></td>
-						<td>
-                            <a href="<?php echo site_url('ikp/edit/'.$i['no']); ?>" class="btn btn-info btn-xs"><span class="fa fa-pencil"></span> Edit</a> 
-                            <a href="<?php echo site_url('ikp/remove/'.$i['no']); ?>" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span> Delete</a>
-                        </td>
-                    </tr>
-                    <?php } ?>
+                    </thead>
+                    
                 </table>
 				</div>
         <!-- /.box-body -->
         <div class="box-footer">
           <div class="form-group col-md-1">
-            <?= anchor('ikp/add/','<i class="fa fa-plus"></i> Tambah', array('class' => 'btn btn-primary'));?>
+            <!-- <?= anchor('ikp/add/','<i class="fa fa-plus"></i> Tambah', array('class' => 'btn btn-primary'));?> -->
           </div>
         </div>
         <!-- /.box-footer-->
@@ -50,3 +36,54 @@
         </div>
     </div>
 </div>
+
+<?php $this->load->view('hira/modal_pending') ?>
+<script>
+  function showPending(id){
+    $('#form_pending').attr('action','<?= base_url('hira/pending/').'/' ?>' + id);
+    $('#modal-pending').modal();
+  }
+  function loadtable() {
+    //datatables
+    table = $('#dtable').DataTable({
+        'paging': true,
+        'lengthChange': true,
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': true,
+        'columns': [{
+                'width': '50px'
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            
+            
+        ],
+        'bDestroy': true,
+        'processing': true, //Feature control the processing indicator.\
+        'serverSide': true, //Feature control DataTables' server-side processing mode.\
+        'order': [], //Initial no order.
+
+        // Load data for the table's content from an Ajax source
+        'ajax': {
+            'url': "<?= site_url('ikp/ajax_list') ?>",
+            'type': "POST",
+        },
+
+        //Set column definition initialisation properties.
+        'columnDefs': [{
+            'targets': [0], //first column / numbering column
+            'orderable': false, //set not orderable
+        }, ],
+
+    });
+}
+</script>

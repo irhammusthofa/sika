@@ -48,3 +48,48 @@ function status_hira($status,$skin=false){
 		return $msg;
 	}
 }
+function convert_role($role,$skin=false){
+	switch ($role) {
+		case '1':
+			$msg = 'Admin';
+			$type = 'primary';
+			break;
+		case '2':
+			$msg = 'User';
+			$type = 'default';
+			break;
+		
+		default:
+			$msg = 'User';
+			$type = 'default';
+			break;
+	}
+	if ($skin){
+		return label_skin(['type'=>$type,'text'=>$msg]);
+	}else{
+		return $msg;
+	}
+}
+
+function convert_status_user($status,$skin=false){
+	switch ($status) {
+		case '0':
+			$msg = 'Tidak aktif';
+			$type = 'danger';
+			break;
+		case '1':
+			$msg = 'Aktif';
+			$type = 'success';
+			break;
+		
+		default:
+			$msg = 'Tidak aktif';
+			$type = 'default';
+			break;
+	}
+	if ($skin){
+		return label_skin(['type'=>$type,'text'=>$msg]);
+	}else{
+		return $msg;
+	}
+}

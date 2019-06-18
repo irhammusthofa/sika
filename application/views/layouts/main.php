@@ -19,9 +19,12 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="<?php echo site_url('resources/css/_all-skins.min.css');?>">
+        <link rel="stylesheet" href="<?php echo site_url('resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');?>">
+        <link rel="stylesheet" href="<?php echo site_url('resources/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css');?>">
+        
     </head>
     
-    <body class="hold-transition skin-blue sidebar-mini">
+    <body class="hold-transition skin-purple-light sidebar-mini">
         <div class="wrapper">
             <header class="main-header">
                 <!-- Logo -->
@@ -111,6 +114,11 @@
                         <?= anchor('ikd','<i class="fa fa-calendar"></i> <span>Izin Kerja Dingin</span>') ?>
                     </li>
                     </li>
+                    <li>
+                    <li class="<?= (@$active=='user') ? 'active' : '' ?>">
+                        <?= anchor('user','<i class="fa fa-users"></i> <span>User</span>') ?>
+                    </li>
+                    </li>
                 </ul>
                 </li>
                 </ul>
@@ -173,11 +181,15 @@
         <!-- DatePicker -->
         <script src="<?php echo site_url('resources/js/moment.js');?>"></script>
         <script src="<?php echo site_url('resources/js/bootstrap-datetimepicker.min.js');?>"></script>
+        <script src="<?php echo site_url('resources/bower_components/datatables.net/js/jquery.dataTables.min.js');?>"></script>
+        <script src="<?php echo site_url('resources/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js');?>"></script>
         <script src="<?php echo site_url('resources/js/global.js');?>"></script>
         <script
         src="<?php echo site_url('resources/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') ?>">
     </script>
     <script>
+
+    var table;
     $(document).ready(function() {
         $('#datepicker').datepicker({
             autoclose: true
@@ -188,6 +200,9 @@
         $('#datepicker2').datepicker({
             autoclose: true
         });
+        if (typeof loadtable == 'function') { 
+            loadtable(); 
+        }
     });
     </script>
     <?php if(!empty(@$assets_footer)) {
